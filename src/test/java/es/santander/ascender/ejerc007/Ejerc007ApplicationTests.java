@@ -8,25 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.santander.ascender.ejerc007.model.Expediente;
-import es.santander.ascender.ejerc007.repository.ExpedienteRepository;
+import es.santander.ascender.ejerc007.model.Libros;
+import es.santander.ascender.ejerc007.repository.LibrosRepository;
 
 @SpringBootTest
 class Ejerc007ApplicationTests {
 
 	@Autowired
-	private ExpedienteRepository expedienteRepository;
+	private LibrosRepository expedienteRepository;
 
 	@Test
 	@Transactional
 	void contextLoads() {
-		Expediente expediente = new Expediente();
+		Libros expediente = new Libros();
 	
 		expediente = expedienteRepository.save(expediente);
 
 		assertNotNull(expediente.getId());
 	
-		Expediente expediente2 = expedienteRepository.findById(expediente.getId()).orElse(null);
+		Libros expediente2 = expedienteRepository.findById(expediente.getId()).orElse(null);
 
 		assertNotNull(expediente.getId());
 

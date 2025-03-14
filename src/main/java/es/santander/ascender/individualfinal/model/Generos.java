@@ -1,38 +1,39 @@
-package es.santander.ascender.ejerc007.model;
-
-import java.util.ArrayList;
-import java.util.List;
+package es.santander.ascender.individualfinal.model;
 
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Expediente {
+public class Generos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Length(max = 50)
-    private String referencia;
+    @NotBlank
+    @NotNull
+    @Length(max = 30)
+    private String nombre;
 
-    @OneToMany(orphanRemoval = true, 
-                mappedBy = "expediente", 
-                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    private List<Documento> documento = new ArrayList<>();
+    @Length(max = 255)
+    private String descripcion;
+
+    @OneToMany(mappedBy = "generos")
+    private Libros libros;
 
 
-    public List<Documento> getDocumento() {
-        return documento;
+    public Generos() {
     }
 
-    public void setDocumento(List<Documento> documento) {
-        this.documento = documento;
+    public Generos(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public Long getId() {
@@ -43,8 +44,28 @@ public class Expediente {
         this.id = id;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Libros getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Libros libros) {
+        this.libros = libros;
     }
 
     @Override
@@ -63,7 +84,7 @@ public class Expediente {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Expediente other = (Expediente) obj;
+        Generos other = (Generos) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -72,7 +93,4 @@ public class Expediente {
         return true;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
 }

@@ -23,10 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.santander.ascender.ejerc007.model.Documento;
-import es.santander.ascender.ejerc007.model.Expediente;
-import es.santander.ascender.ejerc007.repository.DocumentoRepository;
-import es.santander.ascender.ejerc007.repository.ExpedienteRepository;
+import es.santander.ascender.ejerc007.model.Generos;
+import es.santander.ascender.ejerc007.model.Libros;
+import es.santander.ascender.ejerc007.repository.GenerosRepository;
+import es.santander.ascender.ejerc007.repository.LibrosRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,31 +37,31 @@ public class ExpedienteControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private ExpedienteRepository expedienteRepository;
+    private LibrosRepository expedienteRepository;
 
     @Autowired
-    private DocumentoRepository documentoRepository;
+    private GenerosRepository documentoRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Expediente expediente1;
-    private Expediente expediente2;
-    private Documento documento;
+    private Libros expediente1;
+    private Libros expediente2;
+    private Generos documento;
 
     //@BeforeEach
     void setUp() {
         expedienteRepository.deleteAll();
 
-        documento = new Documento();
+        documento = new Generos();
         documento.setNombre("documento1");
 
-        expediente1 = new Expediente();
+        expediente1 = new Libros();
         expediente1.setReferencia("REF-001");
         expediente1.getDocumento().add(documento);
         documento.setExpediente(expediente1);
         
-        expediente2 = new Expediente();
+        expediente2 = new Libros();
         expediente2.setReferencia("REF-002");
 
         expedienteRepository.save(expediente1);
@@ -71,7 +71,7 @@ public class ExpedienteControllerIntegrationTest {
 
     @Test
     void createExpediente_ShouldReturnCreated() throws Exception {
-        Expediente newExpediente = new Expediente();
+        Libros newExpediente = new Libros();
         newExpediente.setReferencia("REF-003");
 
         mockMvc.perform(post("/api/expedientes")
@@ -112,7 +112,7 @@ public class ExpedienteControllerIntegrationTest {
     @Test
     void updateExpediente_ExistingId_ShouldReturnOk() throws Exception {
         Long id = expediente1.getId();
-        Expediente updatedExpediente = new Expediente();
+        Libros updatedExpediente = new Libros();
         updatedExpediente.setReferencia("REF-001-UPDATED");
 
         mockMvc.perform(put("/api/expedientes/" + id)
@@ -125,7 +125,7 @@ public class ExpedienteControllerIntegrationTest {
 
     @Test
     void updateExpediente_NonExistingId_ShouldReturnNotFound() throws Exception {
-        Expediente updatedExpediente = new Expediente();
+        Libros updatedExpediente = new Libros();
         updatedExpediente.setReferencia("REF-001-UPDATED");
 
         mockMvc.perform(put("/api/expedientes/999")
@@ -153,11 +153,11 @@ public class ExpedienteControllerIntegrationTest {
     
     @Test
     void createExpediente_ShouldCreateExpedienteWithDocumentos() throws Exception{
-        Expediente newExpediente = new Expediente();
+        Libros newExpediente = new Libros();
         newExpediente.setReferencia("REF-003");
-        Documento doc1 = new Documento();
+        Generos doc1 = new Generos();
         doc1.setNombre("Doc1");
-        Documento doc2 = new Documento();
+        Generos doc2 = new Generos();
         doc2.setNombre("Doc2");
         newExpediente.getDocumento().add(doc1);
         newExpediente.getDocumento().add(doc2);

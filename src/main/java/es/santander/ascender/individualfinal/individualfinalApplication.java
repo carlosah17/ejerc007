@@ -1,13 +1,13 @@
-package es.santander.ascender.ejerc007;
+package es.santander.ascender.individualfinal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ejerc007Application {
+public class individualfinalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Ejerc007Application.class, args);
+		SpringApplication.run(individualfinalApplication.class, args);
 	}
 
 }
